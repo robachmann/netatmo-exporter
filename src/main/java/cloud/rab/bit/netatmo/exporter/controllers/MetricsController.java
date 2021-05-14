@@ -38,7 +38,7 @@ public class MetricsController {
                 .build();
 
         if (millis > 0) {
-            log.info("Scraping source took {} ms", millis);
+            log.debug("Scraping source took {} ms", millis);
         }
 
         List<Metric> metrics = timed.get();
