@@ -1,14 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: netatmo-exporter
+  namespace: netatmo-exporter
   labels:
     app: netatmo-exporter
-  name: netatmo-exporter
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: netatmo-exporter
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
