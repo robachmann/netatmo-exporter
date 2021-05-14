@@ -1,0 +1,7 @@
+prometheus:
+  prometheusSpec:
+    additionalScrapeConfigs:
+      - job_name: "netatmo-exporter"
+        scrape_interval: 30s
+        static_configs:
+          - targets: [ "10.35.55.x:8080" ]

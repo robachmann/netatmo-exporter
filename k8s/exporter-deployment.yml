@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: netatmo-exporter
+  name: netatmo-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netatmo-exporter
+  template:
+    metadata:
+      labels:
+        app: netatmo-exporter
+    spec:
+      containers:
+        - image: robachmann/netatmo-exporter:1.0.0
+          name: netatmo-exporter
+          resources:
+            requests:
+              cpu: 50m
+              memory: 512Mi
+            limits:
+              memory: 512Mi
+          env:
+            - name: "JAVA_OPTS"
+              value: "-XX:ReservedCodeCacheSize=64M -XX:MaxDirectMemorySize=128M"
+          envFrom:
+            - secretRef:
+                name: netatmo-exporter-secret

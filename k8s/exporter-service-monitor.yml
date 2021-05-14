@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: netatmo-exporter
+  labels:
+    release: prometheus
+spec:
+  jobLabel: netatmo-exporter
+  selector:
+    matchLabels:
+      exporter: netatmo
+  endpoints:
+    - port: http-metrics
+      interval: 2m
+      path: /metrics
