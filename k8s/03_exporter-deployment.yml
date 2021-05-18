@@ -18,7 +18,7 @@ spec:
         app: netatmo-exporter
     spec:
       containers:
-        - image: robachmann/netatmo-exporter:1.0.0
+        - image: robachmann/netatmo-exporter:1.1.0
           name: netatmo-exporter
           resources:
             requests:
