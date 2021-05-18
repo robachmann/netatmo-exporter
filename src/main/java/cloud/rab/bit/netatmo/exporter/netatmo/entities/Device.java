@@ -37,7 +37,7 @@ public class Device {
     @JsonProperty("place")
     private Place place;
     @JsonProperty("dashboard_data")
-    private IndoorData indoorData;
+    private DeviceData deviceData;
     private List<Module> modules = new ArrayList<>();
 
 }

@@ -1,6 +1,9 @@
 package cloud.rab.bit.netatmo.exporter.netatmo;
 
-import cloud.rab.bit.netatmo.exporter.netatmo.entities.*;
+import cloud.rab.bit.netatmo.exporter.netatmo.entities.Body;
+import cloud.rab.bit.netatmo.exporter.netatmo.entities.Device;
+import cloud.rab.bit.netatmo.exporter.netatmo.entities.NetatmoResponse;
+import cloud.rab.bit.netatmo.exporter.netatmo.entities.NetatmoToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -41,13 +44,10 @@ public class NetatmoClient {
                 List<Device> devices = body.getDevices();
                 if (!devices.isEmpty()) {
                     Device device = devices.get(0);
-                    IndoorData indoorData = device.getIndoorData();
-                    if (indoorData != null) {
-                        Long timeUtc = indoorData.getTimeUtc();
-                        if (timeUtc != null) {
-                            Instant stationInstant = Instant.ofEpochSecond(timeUtc);
-                            return Duration.between(Instant.now(), stationInstant).plus(defaultDuration);
-                        }
+                    Long timeUtc = device.getLastStatusStore();
+                    if (timeUtc != null) {
+                        Instant stationInstant = Instant.ofEpochSecond(timeUtc);
+                        return Duration.between(Instant.now(), stationInstant).plus(defaultDuration);
                     }
                 }
             }

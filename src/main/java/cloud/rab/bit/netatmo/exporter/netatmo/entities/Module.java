@@ -20,7 +20,7 @@ public class Module {
     private Long lastSetup;
     private Boolean reachable;
     @JsonProperty("dashboard_data")
-    private OutdoorData dashboardData;
+    private ModuleData dashboardData;
     private Long firmware;
     @JsonProperty("last_message")
     private Long lastMessage;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class OutdoorData {
+public class ModuleData {
 
     @JsonProperty("time_utc")
     private Long timeUtc;
@@ -12,6 +12,8 @@ public class OutdoorData {
     private Double temperature;
     @JsonProperty("Humidity")
     private Long humidity;
+    @JsonProperty("CO2")
+    private Long co2;
     @JsonProperty("min_temp")
     private Double minTemp;
     @JsonProperty("max_temp")

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class IndoorData {
+public class DeviceData {
 
     @JsonProperty("time_utc")
     private Long timeUtc;
