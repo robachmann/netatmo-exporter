@@ -37,7 +37,6 @@ public class NetatmoClient {
     }
 
     private Duration extractStationTime(NetatmoResponse netatmoResponse) {
-        Duration defaultDuration = Duration.ofMinutes(10);
         if (netatmoResponse != null) {
             Body body = netatmoResponse.getBody();
             if (body != null) {
@@ -47,12 +46,12 @@ public class NetatmoClient {
                     Long timeUtc = device.getLastStatusStore();
                     if (timeUtc != null) {
                         Instant stationInstant = Instant.ofEpochSecond(timeUtc);
-                        return Duration.between(Instant.now(), stationInstant).plus(defaultDuration);
+                        return Duration.between(Instant.now(), stationInstant).plusMinutes(10);
                     }
                 }
             }
         }
-        return defaultDuration;
+        return Duration.ZERO;
     }
 
     public Mono<NetatmoResponse> getStationData() {
