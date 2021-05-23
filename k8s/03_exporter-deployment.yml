@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: netatmo-exporter
+        framework: spring
     spec:
       containers:
         - image: robachmann/netatmo-exporter:1.1.0
@@ -32,3 +33,17 @@ spec:
           envFrom:
             - secretRef:
                 name: netatmo-exporter-secret
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 10
+            initialDelaySeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 10
+            initialDelaySeconds: 20
