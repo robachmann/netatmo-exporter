@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: spring-metrics-exporter
+  # namespace: monitoring
+  namespace: netatmo-exporter
+  labels:
+    release: prometheus
+spec:
+  jobLabel: spring-metrics
+  selector:
+    matchLabels:
+      framework: spring
+  namespaceSelector:
+    matchNames:
+      - netatmo-exporter
+  podMetricsEndpoints:
+    - port: "8080"
+      interval: 1m
+      path: /actuator/prometheus
