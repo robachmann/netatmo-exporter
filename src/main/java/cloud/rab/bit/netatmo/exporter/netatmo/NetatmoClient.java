@@ -33,7 +33,13 @@ public class NetatmoClient {
     }
 
     private Duration extractTokenExpiration(NetatmoToken response) {
-        return Duration.ofSeconds(response.getExpiresIn());
+        if (response != null) {
+            Long expiresIn = response.getExpiresIn();
+            if (expiresIn != null) {
+                return Duration.ofSeconds(expiresIn).minus(Duration.ofMinutes(5));
+            }
+        }
+        return Duration.ZERO;
     }
 
     private Duration extractStationTime(NetatmoResponse netatmoResponse) {
