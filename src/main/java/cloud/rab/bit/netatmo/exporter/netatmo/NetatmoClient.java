@@ -33,11 +33,16 @@ public class NetatmoClient {
     }
 
     private Duration extractTokenExpiration(NetatmoToken response) {
-        return Duration.ofSeconds(response.getExpiresIn());
+        if (response != null) {
+            Long expiresIn = response.getExpiresIn();
+            if (expiresIn != null) {
+                return Duration.ofSeconds(expiresIn).minus(Duration.ofMinutes(5));
+            }
+        }
+        return Duration.ZERO;
     }
 
     private Duration extractStationTime(NetatmoResponse netatmoResponse) {
-        Duration defaultDuration = Duration.ofMinutes(10);
         if (netatmoResponse != null) {
             Body body = netatmoResponse.getBody();
             if (body != null) {
@@ -47,12 +52,12 @@ public class NetatmoClient {
                     Long timeUtc = device.getLastStatusStore();
                     if (timeUtc != null) {
                         Instant stationInstant = Instant.ofEpochSecond(timeUtc);
-                        return Duration.between(Instant.now(), stationInstant).plus(defaultDuration);
+                        return Duration.between(Instant.now(), stationInstant).plusMinutes(10);
                     }
                 }
             }
         }
-        return defaultDuration;
+        return Duration.ZERO;
     }
 
     public Mono<NetatmoResponse> getStationData() {
