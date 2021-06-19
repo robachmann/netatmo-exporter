@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 2,
-  "id": 25,
-  "iteration": 1621770402770,
+  "id": 30,
+  "iteration": 1624085164555,
   "links": [],
   "panels": [
     {
@@ -73,7 +73,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 12,
         "x": 0,
         "y": 1
@@ -152,7 +152,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 12,
         "x": 12,
         "y": 1
@@ -189,13 +189,162 @@
       "type": "stat"
     },
     {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgb(255, 255, 255)",
+                "value": null
+              },
+              {
+                "color": "light-blue",
+                "value": 0
+              },
+              {
+                "color": "blue",
+                "value": 10
+              },
+              {
+                "color": "green",
+                "value": 20
+              },
+              {
+                "color": "semi-dark-orange",
+                "value": 24
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 30
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "avg_over_time(netatmo_temperature_c[1d])",
+          "interval": "1d",
+          "legendFormat": "{{moduleName}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "7d",
+      "timeShift": null,
+      "title": "Temperature Trend",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-green",
+                "value": null
+              },
+              {
+                "color": "light-yellow",
+                "value": 1000
+              },
+              {
+                "color": "light-orange",
+                "value": 1500
+              },
+              {
+                "color": "light-red",
+                "value": 2000
+              }
+            ]
+          },
+          "unit": "ppm"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 12,
+        "y": 5
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "avg(netatmo_co2_ppm) by (moduleName)",
+          "interval": "",
+          "legendFormat": "{{moduleName}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CO2",
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 9
       },
       "id": 22,
       "panels": [],
@@ -277,10 +426,10 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 12,
         "x": 0,
-        "y": 5
+        "y": 10
       },
       "id": 12,
       "options": {
@@ -310,52 +459,100 @@
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "mappings": [],
+          "max": 80,
+          "min": 40,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "percent"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Bedroom",
+                  "Living Room",
+                  "Office"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "graph": true,
+                  "legend": false,
+                  "tooltip": false
+                }
+              }
+            ]
+          }
+        ]
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 5
+        "y": 10
       },
-      "hiddenSeries": false,
       "id": 13,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "graph": {},
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "multi"
+        }
       },
-      "percentage": false,
       "pluginVersion": "7.5.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "exemplar": true,
@@ -365,46 +562,90 @@
           "refId": "A"
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Humidity",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "percent",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pressurehpa"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "id": 8,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "multi"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "exemplar": true,
+          "expr": "avg(netatmo_pressure_mbar{type=\"relative\"}) by (moduleName)",
+          "interval": "",
+          "legendFormat": "{{moduleName}}",
+          "refId": "A"
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Pressure",
+      "type": "timeseries"
     },
     {
       "datasource": null,
@@ -458,10 +699,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 19
       },
       "id": 6,
       "options": {
@@ -492,7 +733,6 @@
     },
     {
       "datasource": null,
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -517,11 +757,12 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": false
           },
+          "decimals": 1,
           "mappings": [],
-          "max": 1050,
-          "min": 950,
+          "max": 70,
+          "min": 50,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -535,17 +776,48 @@
               }
             ]
           },
-          "unit": "pressurehpa"
+          "unit": "percent"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 24
       },
-      "id": 8,
+      "id": 27,
       "options": {
         "graph": {},
         "legend": {
@@ -554,35 +826,32 @@
           "placement": "bottom"
         },
         "tooltipOptions": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "pluginVersion": "7.5.5",
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(netatmo_pressure_mbar{type=\"relative\"}) by (moduleName)",
-          "interval": "",
-          "legendFormat": "{{moduleName}}",
+          "expr": "max_over_time(netatmo_humidity_percent{moduleName=\"Living Room\"}[1d])",
+          "hide": false,
+          "interval": "1d",
+          "legendFormat": "max",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "min_over_time(netatmo_humidity_percent{moduleName=\"Living Room\"}[1d])",
+          "hide": false,
+          "interval": "1d",
+          "legendFormat": "min",
+          "refId": "B"
         }
       ],
-      "timeFrom": null,
+      "timeFrom": "7d",
       "timeShift": null,
-      "title": "Pressure",
+      "title": "Living Room Humidity min/max",
       "type": "timeseries"
-    },
-    {
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 19
-      },
-      "id": 20,
-      "title": "By Module",
-      "type": "row"
     },
     {
       "aliasColors": {},
@@ -598,10 +867,10 @@
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 24,
+        "h": 7,
+        "w": 12,
         "x": 0,
-        "y": 20
+        "y": 26
       },
       "hiddenSeries": false,
       "id": 14,
@@ -625,14 +894,7 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "repeat": "moduleName",
-      "scopedVars": {
-        "moduleName": {
-          "selected": true,
-          "text": "Outdoor",
-          "value": "Outdoor"
-        }
-      },
+      "repeat": null,
       "seriesOverrides": [
         {
           "$$hashKey": "object:104",
@@ -652,7 +914,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(netatmo_temperature_c{moduleName=~\"$moduleName\"})",
+          "expr": "avg(netatmo_temperature_c{moduleName=~\"Outdoor\"})",
           "interval": "",
           "legendFormat": "temperature",
           "refId": "A"
@@ -670,7 +932,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "$moduleName",
+      "title": "Outdoor",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -708,6 +970,126 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 30
+      },
+      "id": 29,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "multi"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "max_over_time(netatmo_temperature_c{moduleName=\"Outdoor\"}[1d])",
+          "hide": false,
+          "interval": "1d",
+          "legendFormat": "max",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "min_over_time(netatmo_temperature_c{moduleName=\"Outdoor\"}[1d])",
+          "hide": false,
+          "interval": "1d",
+          "legendFormat": "min",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": "7d",
+      "timeShift": null,
+      "title": "Outdoor Temperature min/max",
+      "type": "timeseries"
     },
     {
       "datasource": null,
@@ -757,10 +1139,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 35
       },
       "id": 7,
       "options": {
@@ -771,7 +1153,7 @@
           "placement": "bottom"
         },
         "tooltipOptions": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "pluginVersion": "7.5.5",
@@ -790,13 +1172,25 @@
       "type": "timeseries"
     },
     {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "id": 20,
+      "title": "By Module",
+      "type": "row"
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 40
       },
       "id": 17,
       "panels": [],
@@ -828,7 +1222,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 34
+        "y": 41
       },
       "id": 5,
       "options": {
@@ -896,7 +1290,7 @@
         "h": 5,
         "w": 3,
         "x": 4,
-        "y": 34
+        "y": 41
       },
       "id": 2,
       "options": {
@@ -959,6 +1353,7 @@
             "spanNulls": true
           },
           "mappings": [],
+          "min": -80,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -980,7 +1375,7 @@
         "h": 5,
         "w": 5,
         "x": 7,
-        "y": 34
+        "y": 41
       },
       "id": 10,
       "options": {
@@ -1061,7 +1456,7 @@
         "h": 5,
         "w": 12,
         "x": 12,
-        "y": 34
+        "y": 41
       },
       "id": 11,
       "options": {
@@ -1096,69 +1491,7 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "allValue": null,
-        "current": {
-          "selected": true,
-          "text": [
-            "Outdoor"
-          ],
-          "value": [
-            "Outdoor"
-          ]
-        },
-        "datasource": null,
-        "definition": "label_values(netatmo_temperature_c, moduleName)",
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": true,
-        "label": "module",
-        "multi": true,
-        "name": "moduleName",
-        "options": [
-          {
-            "selected": false,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "Bedroom",
-            "value": "Bedroom"
-          },
-          {
-            "selected": false,
-            "text": "Living Room",
-            "value": "Living Room"
-          },
-          {
-            "selected": false,
-            "text": "Office",
-            "value": "Office"
-          },
-          {
-            "selected": true,
-            "text": "Outdoor",
-            "value": "Outdoor"
-          }
-        ],
-        "query": {
-          "query": "label_values(netatmo_temperature_c, moduleName)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 0,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now-24h",
@@ -1168,5 +1501,5 @@
   "timezone": "",
   "title": "Netatmo",
   "uid": "UTeejyCGk",
-  "version": 40
+  "version": 13
 }
