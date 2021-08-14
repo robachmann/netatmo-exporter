@@ -19,7 +19,7 @@ spec:
         framework: spring
     spec:
       containers:
-        - image: robachmann/netatmo-exporter:1.2.2-arm64
+        - image: robachmann/netatmo-exporter:1.2.3-arm64
           name: netatmo-exporter
           resources:
             requests:

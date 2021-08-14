@@ -58,22 +58,26 @@ public class NetatmoService {
 
                 for (Module module : device.getModules()) {
 
-                    Map<String, String> moduleLabels = Map.of(
-                            "deviceId", device.getId(),
-                            "stationName", device.getStationName(),
-                            "moduleName", module.getModuleName(),
-                            "moduleId", module.getId()
-                    );
+                    if (module != null) {
+                        Map<String, String> moduleLabels = Map.of(
+                                "deviceId", device.getId(),
+                                "stationName", device.getStationName(),
+                                "moduleName", module.getModuleName(),
+                                "moduleId", module.getId()
+                        );
 
-                    metricList.add(createMetric("netatmo_firmware", module::getFirmware, moduleLabels));
-                    metricList.add(createMetric("netatmo_battery_percent", module::getBatteryPercent, moduleLabels));
-                    metricList.add(createMetric("netatmo_diagnostics", module::getRfStatus, moduleLabels, Map.of("type", "rf_status")));
+                        metricList.add(createMetric("netatmo_firmware", module::getFirmware, moduleLabels));
+                        metricList.add(createMetric("netatmo_battery_percent", module::getBatteryPercent, moduleLabels));
+                        metricList.add(createMetric("netatmo_diagnostics", module::getRfStatus, moduleLabels, Map.of("type", "rf_status")));
 
-                    ModuleData moduleData = module.getDashboardData();
-                    metricList.add(createMetric("netatmo_temperature_c", moduleData::getTemperature, moduleLabels));
-                    metricList.add(createMetric("netatmo_humidity_percent", moduleData::getHumidity, moduleLabels));
-                    if (moduleData.getCo2() != null) {
-                        metricList.add(createMetric("netatmo_co2_ppm", moduleData::getCo2, moduleLabels));
+                        ModuleData moduleData = module.getDashboardData();
+                        if (moduleData != null) {
+                            metricList.add(createMetric("netatmo_temperature_c", moduleData::getTemperature, moduleLabels));
+                            metricList.add(createMetric("netatmo_humidity_percent", moduleData::getHumidity, moduleLabels));
+                            if (moduleData.getCo2() != null) {
+                                metricList.add(createMetric("netatmo_co2_ppm", moduleData::getCo2, moduleLabels));
+                            }
+                        }
                     }
                 }
 
