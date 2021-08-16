@@ -45,16 +45,16 @@ public class NetatmoService {
                         "moduleName", device.getModuleName()
                 );
 
-                metricList.add(createMetric("netatmo_firmware", device::getFirmware, deviceLabels));
-                metricList.add(createMetric("netatmo_diagnostics", device::getWifiStatus, deviceLabels, Map.of("type", "wifi_status")));
+                addMetric("netatmo_firmware", device::getFirmware, deviceLabels, metricList);
+                addMetric("netatmo_diagnostics", device::getWifiStatus, deviceLabels, Map.of("type", "wifi_status"), metricList);
 
                 DeviceData deviceData = device.getDeviceData();
-                metricList.add(createMetric("netatmo_temperature_c", deviceData::getTemperature, deviceLabels));
-                metricList.add(createMetric("netatmo_humidity_percent", deviceData::getHumidity, deviceLabels));
-                metricList.add(createMetric("netatmo_co2_ppm", deviceData::getCo2, deviceLabels));
-                metricList.add(createMetric("netatmo_noise_db", deviceData::getNoise, deviceLabels));
-                metricList.add(createMetric("netatmo_pressure_mbar", deviceData::getPressure, deviceLabels, Map.of("type", "relative")));
-                metricList.add(createMetric("netatmo_pressure_mbar", deviceData::getAbsolutePressure, deviceLabels, Map.of("type", "absolute")));
+                addMetric("netatmo_temperature_c", deviceData::getTemperature, deviceLabels, metricList);
+                addMetric("netatmo_humidity_percent", deviceData::getHumidity, deviceLabels, metricList);
+                addMetric("netatmo_co2_ppm", deviceData::getCo2, deviceLabels, metricList);
+                addMetric("netatmo_noise_db", deviceData::getNoise, deviceLabels, metricList);
+                addMetric("netatmo_pressure_mbar", deviceData::getPressure, deviceLabels, Map.of("type", "relative"), metricList);
+                addMetric("netatmo_pressure_mbar", deviceData::getAbsolutePressure, deviceLabels, Map.of("type", "absolute"), metricList);
 
                 for (Module module : device.getModules()) {
 
@@ -66,17 +66,16 @@ public class NetatmoService {
                                 "moduleId", String.valueOf(module.getId())
                         );
 
-                        metricList.add(createMetric("netatmo_firmware", module::getFirmware, moduleLabels));
-                        metricList.add(createMetric("netatmo_battery_percent", module::getBatteryPercent, moduleLabels));
-                        metricList.add(createMetric("netatmo_diagnostics", module::getRfStatus, moduleLabels, Map.of("type", "rf_status")));
+                        addMetric("netatmo_firmware", module::getFirmware, moduleLabels, metricList);
+                        addMetric("netatmo_firmware", module::getFirmware, moduleLabels, metricList);
+                        addMetric("netatmo_battery_percent", module::getBatteryPercent, moduleLabels, metricList);
+                        addMetric("netatmo_diagnostics", module::getRfStatus, moduleLabels, Map.of("type", "rf_status"), metricList);
 
                         ModuleData moduleData = module.getDashboardData();
                         if (moduleData != null) {
-                            metricList.add(createMetric("netatmo_temperature_c", moduleData::getTemperature, moduleLabels));
-                            metricList.add(createMetric("netatmo_humidity_percent", moduleData::getHumidity, moduleLabels));
-                            if (moduleData.getCo2() != null) {
-                                metricList.add(createMetric("netatmo_co2_ppm", moduleData::getCo2, moduleLabels));
-                            }
+                            addMetric("netatmo_temperature_c", moduleData::getTemperature, moduleLabels, metricList);
+                            addMetric("netatmo_humidity_percent", moduleData::getHumidity, moduleLabels, metricList);
+                            addMetric("netatmo_co2_ppm", moduleData::getCo2, moduleLabels, metricList);
                         }
                     }
                 }
@@ -87,8 +86,14 @@ public class NetatmoService {
         return metricList;
     }
 
-    private Metric createMetric(String metricName, Supplier<Number> valueSupplier, Map<String, String> labels) {
-        return createMetric(metricName, valueSupplier, labels, new TreeMap<>());
+    private void addMetric(String metricName, Supplier<Number> valueSupplier, Map<String, String> labels, List<Metric> metricList) {
+        addMetric(metricName, valueSupplier, labels, new TreeMap<>(), metricList);
+    }
+
+    private void addMetric(String metricName, Supplier<Number> valueSupplier, Map<String, String> labels, Map<String, String> additionalLabels, List<Metric> metricList) {
+        if (valueSupplier.get() != null) {
+            metricList.add(createMetric(metricName, valueSupplier, labels, additionalLabels));
+        }
     }
 
     private Metric createMetric(String metricName, Supplier<Number> valueSupplier, Map<String, String> labels, Map<String, String> additionalLabels) {
