@@ -60,10 +60,10 @@ public class NetatmoService {
 
                     if (module != null) {
                         Map<String, String> moduleLabels = Map.of(
-                                "deviceId", device.getId(),
-                                "stationName", device.getStationName(),
-                                "moduleName", module.getModuleName(),
-                                "moduleId", module.getId()
+                                "deviceId", String.valueOf(device.getId()),
+                                "stationName", String.valueOf(device.getStationName()),
+                                "moduleName", String.valueOf(module.getModuleName()),
+                                "moduleId", String.valueOf(module.getId())
                         );
 
                         metricList.add(createMetric("netatmo_firmware", module::getFirmware, moduleLabels));

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'cloud.rab.bit'
-version = '1.2.3'
+version = '1.2.4'
 sourceCompatibility = '11'
 
 configurations {
